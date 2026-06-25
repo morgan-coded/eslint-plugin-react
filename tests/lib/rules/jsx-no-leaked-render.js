@@ -251,6 +251,14 @@ ruleTester.run('jsx-no-leaked-render', rule, {
       `,
       options: [{ ignoreAttributes: true }],
     },
+    {
+      code: `
+        const Component = ({ enabled, checked }) => {
+          return <CheckBox checked={enabled ? checked : null} />
+        }
+      `,
+      options: [{ validStrategies: ['coerce'], ignoreAttributes: true }],
+    },
   ]) || [],
 
   invalid: parsers.all([].concat(
